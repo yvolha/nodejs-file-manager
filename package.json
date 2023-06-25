@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-file-manager",
+  "version": "1.0.0",
+  "description": "nodejs-file-manager by yvolha",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "yvolha",
+  "license": "ISC"
+}
