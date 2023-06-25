@@ -1,11 +1,9 @@
-import currentDir from './modules/current-dir.js';
+import { userName } from './src/username.js';
+import currentDir from './src/current-dir.js';
 
-const userName = 'Username' || 'Username';
-
-const startApp = async () => {
+const startApp = () => {  
   console.log(`Welcome to the File Manager, ${userName}!`);
-
   console.log(`You are currently in ${currentDir}`);
 }
 
-await startApp();
+startApp();
