@@ -1,6 +1,7 @@
 import { updateCurrentDir } from "./current-dir.js";
 import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
 import { cmdAdd, cmdCat, cmdCp, cmdMv, cmdRm, cmdRn } from "../commands/basic.js";
+import { cmdArchitecture, cmdCpus, cmdEOL, cmdHomedir, cmdUsername } from "../commands/sysinfo.js";
 
 const handleCommand = async (command) => {
   try {
@@ -36,6 +37,29 @@ const handleCommand = async (command) => {
         break;
       case 'rm':
         await cmdRm(commandArgs[0]);
+        break;
+      case 'os':
+
+        switch (commandArgs[0]) {
+          case '--EOL':
+            await cmdEOL();
+            break;
+          case '--cpus':
+            await cmdCpus();
+            break;
+          case '--homedir':
+            await cmdHomedir();
+            break;
+          case '--username':
+            await cmdUsername();
+            break;
+          case '--architecture':
+            await cmdArchitecture();
+            break;
+          default: 
+          console.log('Invalid input.\n');
+        }
+
         break;
       default: 
       console.log('Invalid input.\n');
