@@ -1,7 +1,6 @@
-import { join, dirname, parse } from 'path';
-import { fileURLToPath } from 'url';
+import { join, parse } from 'path';
 import { homedir } from 'os';
-import { pathExists } from './check-access.js';
+import { pathExists } from '../utils/check-access.js';
 
 const homeDir = homedir();
 const rootDir = parse(process.cwd()).root;

@@ -1,5 +1,6 @@
 import { updateCurrentDir } from "./current-dir.js";
 import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
+import { cmdCat } from "../commands/basic.js";
 
 const handleCommand = async (command) => {
   try {
@@ -17,6 +18,9 @@ const handleCommand = async (command) => {
         break;
       case 'cd':
         await cmdCd(commandArgs[0]);
+        break;
+      case 'cat':
+        await cmdCat(commandArgs[0]);
         break;
       default: 
       console.log('Invalid input.\n');

@@ -7,8 +7,6 @@ export const cmdLs = async (folder) => {
   })
   .catch(() => console.log('Operation failed'));
 
-  console.log(items);
-
   const typedItems = await Promise.all(items
   .map(item => ({
     Name: item.name,
