@@ -1,6 +1,7 @@
 import { dirname, join, parse } from 'path';
 import { writeFile, rename, createReadStream, createWriteStream } from 'fs';
 import { pipeline } from 'node:stream/promises';
+import { unlink } from 'node:fs/promises';
 
 import { updateCurrentDir } from "../general/current-dir.js";
 import { pathExists } from "../utils/check-access.js";
@@ -63,6 +64,26 @@ export const cmdCp = async (filePath, dirPath) => {
       const writeableStream = createWriteStream(join(await createPathToFile(dirPath), base));
 
       await pipeline(readableStream, writeableStream);
+
+    } else {
+      console.log('Invalid input.')
+    }
+  }
+}
+
+export const cmdMv = async (filePath, dirPath) => {
+  if (filePath < 1 || dirPath.length < 1) {
+    console.log('Invalid input.')
+  } else {
+    const currentFilePath = await createPathToFile(filePath);
+
+    if (await pathExists(currentFilePath)){
+      const { base } = parse(currentFilePath);
+
+      const readableStream = createReadStream(currentFilePath);
+      const writeableStream = createWriteStream(join(await createPathToFile(dirPath), base));
+
+      await pipeline(readableStream, writeableStream).then(() => unlink(currentFilePath));
 
     } else {
       console.log('Invalid input.')
