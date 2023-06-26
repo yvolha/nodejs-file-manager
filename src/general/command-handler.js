@@ -2,6 +2,7 @@ import { updateCurrentDir } from "./current-dir.js";
 import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
 import { cmdAdd, cmdCat, cmdCp, cmdMv, cmdRm, cmdRn } from "../commands/basic.js";
 import { cmdArchitecture, cmdCpus, cmdEOL, cmdHomedir, cmdUsername } from "../commands/sysinfo.js";
+import { cmdHash } from "../commands/hash.js";
 
 const handleCommand = async (command) => {
   try {
@@ -60,6 +61,9 @@ const handleCommand = async (command) => {
           console.log('Invalid input.\n');
         }
 
+        break;
+      case 'hash':
+        await cmdHash(commandArgs[0]);
         break;
       default: 
       console.log('Invalid input.\n');
