@@ -1,10 +1,25 @@
-import currentDir from "../general/current-dir.js"
+import { readdir } from 'fs/promises';
 
 export const cmdLs = async (folder) => {
+  const items = await readdir(folder, {
+    withFileTypes: true,
+  })
+  .catch(() => console.log('Operation failed'));
 
+  const typedItems = await Promise.all(items
+  .map(item => ({
+    Name: item.name,
+    Type: item.isDirectory() ? 'directory' : 'file',
+  }))
+  .sort((a, b) => {
+    if (a.Type > b.Type) {
+      return 1;
+    }
+    if (a.Type < b.Type) {
+      return -1;
+    }
+    return 0;
+  }))
 
-  console.table([{
-    'Name': 'hehe',
-    'Type': "good",
-  }]);
+  console.table(typedItems);
 }
