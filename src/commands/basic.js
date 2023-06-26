@@ -90,3 +90,18 @@ export const cmdMv = async (filePath, dirPath) => {
     }
   }
 }
+
+export const cmdRm = async (filePath) => {
+  if (filePath < 1) {
+    console.log('Invalid input.')
+  } else {
+    const currentFilePath = await createPathToFile(filePath);
+
+    if (await pathExists(currentFilePath)){
+      unlink(currentFilePath);
+
+    } else {
+      console.log('Invalid input.')
+    }
+  }
+}

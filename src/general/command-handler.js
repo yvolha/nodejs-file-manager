@@ -1,6 +1,6 @@
 import { updateCurrentDir } from "./current-dir.js";
 import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
-import { cmdAdd, cmdCat, cmdCp, cmdMv, cmdRn } from "../commands/basic.js";
+import { cmdAdd, cmdCat, cmdCp, cmdMv, cmdRm, cmdRn } from "../commands/basic.js";
 
 const handleCommand = async (command) => {
   try {
@@ -33,6 +33,9 @@ const handleCommand = async (command) => {
         break;
       case 'mv':
         await cmdMv(commandArgs[0], commandArgs[1]);
+        break;
+      case 'rm':
+        await cmdRm(commandArgs[0]);
         break;
       default: 
       console.log('Invalid input.\n');
