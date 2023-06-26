@@ -1,6 +1,6 @@
 import { updateCurrentDir } from "./current-dir.js";
 import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
-import { cmdAdd, cmdCat, cmdRn } from "../commands/basic.js";
+import { cmdAdd, cmdCat, cmdCp, cmdRn } from "../commands/basic.js";
 
 const handleCommand = async (command) => {
   try {
@@ -28,12 +28,15 @@ const handleCommand = async (command) => {
       case 'rn':
         await cmdRn(commandArgs[0], commandArgs[1]);
         break;
+      case 'cp':
+        await cmdCp(commandArgs[0], commandArgs[1]);
+        break;
       default: 
       console.log('Invalid input.\n');
     }
    
-  } catch {
-    console.log('Invalid input.\n');
+  } catch (err) {
+    console.log('Invalid input.\n', err);
   }
   
   console.log(`You are currently in ${await updateCurrentDir()}\n`);

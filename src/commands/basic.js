@@ -1,5 +1,6 @@
-import { dirname, join } from 'path';
-import { writeFile, rename } from 'fs';
+import { dirname, join, parse } from 'path';
+import { writeFile, rename, createReadStream, createWriteStream } from 'fs';
+import { pipeline } from 'node:stream/promises';
 
 import { updateCurrentDir } from "../general/current-dir.js";
 import { pathExists } from "../utils/check-access.js";
@@ -31,7 +32,6 @@ export const cmdAdd = async (path) => {
 }
 
 export const cmdRn = async (filePath, newName) => {
-
   if (filePath < 1 || newName.length < 1) {
     console.log('Invalid input.')
   } else {
@@ -43,6 +43,26 @@ export const cmdRn = async (filePath, newName) => {
       rename(currentPath, join(__dirname, newName.replace(/^["'](.+(?=["']$))["']$/, '$1')), (err) => {
         if (err) console.log('Operation failed.');
       })
+
+    } else {
+      console.log('Invalid input.')
+    }
+  }
+}
+
+export const cmdCp = async (filePath, dirPath) => {
+  if (filePath < 1 || dirPath.length < 1) {
+    console.log('Invalid input.')
+  } else {
+    const currentFilePath = await createPathToFile(filePath);
+
+    if (await pathExists(currentFilePath)){
+      const { base } = parse(currentFilePath);
+
+      const readableStream = createReadStream(currentFilePath);
+      const writeableStream = createWriteStream(join(await createPathToFile(dirPath), base));
+
+      await pipeline(readableStream, writeableStream);
 
     } else {
       console.log('Invalid input.')
