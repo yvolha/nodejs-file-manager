@@ -1,5 +1,5 @@
 import { updateCurrentDir } from "./current-dir.js";
-import { cmdLs, cmdUp } from "../commands/basic.js";
+import { cmdLs, cmdUp } from "../commands/navwd.js";
 
 const handleCommand = async (command) => {
   const commandBase = command.split(' ')[0];
