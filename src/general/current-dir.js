@@ -1,15 +1,22 @@
-import { join, dirname } from 'path';
+import { join, dirname, parse } from 'path';
 import { fileURLToPath } from 'url';
 import { homedir } from 'os';
 
 const homeDir = homedir();
+const rootDir = parse(process.cwd()).root;
+let currentDir = null;
 
-const showCurrentDir = async () => {
-  let currentDir = homeDir;
+export const updateCurrentDir = async (path) => {
+  //console.log(rootDir)
+  if (currentDir === null) {
+    currentDir = homeDir;
+  }
+  
+  if(path === 'up'){
+    if (currentDir === rootDir) return;
+
+    currentDir = join(currentDir, '..');
+  }
 
   return currentDir;
 }
-
-let currentDir = await showCurrentDir();
-
-export default currentDir;

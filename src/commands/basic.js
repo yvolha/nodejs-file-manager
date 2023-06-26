@@ -1,4 +1,5 @@
 import { readdir } from 'fs/promises';
+import { updateCurrentDir } from '../general/current-dir.js';
 
 export const cmdLs = async (folder) => {
   const items = await readdir(folder, {
@@ -22,4 +23,9 @@ export const cmdLs = async (folder) => {
   }))
 
   console.table(typedItems);
+}
+
+
+export const cmdUp = async () => {
+  await updateCurrentDir('up');
 }

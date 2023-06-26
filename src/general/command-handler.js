@@ -1,5 +1,5 @@
-import currentDir from "./current-dir.js";
-import { cmdLs } from "../commands/basic.js";
+import { updateCurrentDir } from "./current-dir.js";
+import { cmdLs, cmdUp } from "../commands/basic.js";
 
 const handleCommand = async (command) => {
   const commandBase = command.split(' ')[0];
@@ -9,11 +9,16 @@ const handleCommand = async (command) => {
 
   switch (commandBase) {
     case 'ls':
-      await cmdLs(currentDir);
+      await cmdLs(await updateCurrentDir());
+      break;
+    case 'up':
+      await cmdUp();
       break;
     default: 
     console.log('Invalid input.\n');
   }
+
+  console.log(`You are currently in ${await updateCurrentDir()}`);
 }
 
 export default handleCommand;
