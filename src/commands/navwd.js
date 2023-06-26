@@ -7,6 +7,8 @@ export const cmdLs = async (folder) => {
   })
   .catch(() => console.log('Operation failed'));
 
+  console.log(items);
+
   const typedItems = await Promise.all(items
   .map(item => ({
     Name: item.name,
@@ -25,7 +27,10 @@ export const cmdLs = async (folder) => {
   console.table(typedItems);
 }
 
-
 export const cmdUp = async () => {
   await updateCurrentDir('up');
+}
+
+export const cmdCd = async (newPath) => {
+  await updateCurrentDir(newPath.toString().trim());
 }
