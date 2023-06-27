@@ -3,13 +3,12 @@ import { cmdLs, cmdUp, cmdCd } from "../commands/navwd.js";
 import { cmdAdd, cmdCat, cmdCp, cmdMv, cmdRm, cmdRn } from "../commands/basic.js";
 import { cmdArchitecture, cmdCpus, cmdEOL, cmdHomedir, cmdUsername } from "../commands/sysinfo.js";
 import { cmdHash } from "../commands/hash.js";
+import { cmdCompress, cmdDecompress } from "../commands/compression.js";
 
 const handleCommand = async (command) => {
   try {
     const commandBase = command.split(' ')[0];
     const commandArgs = command.toString().trim().split(' ').slice(1).filter(e => e);
-    
-    console.log("args in handleCommand", commandBase, commandArgs);
   
     switch (commandBase) {
       case 'ls':
@@ -65,12 +64,18 @@ const handleCommand = async (command) => {
       case 'hash':
         await cmdHash(commandArgs[0]);
         break;
+      case 'compress':
+        await cmdCompress(commandArgs[0], commandArgs[1]);
+        break;
+      case 'decompress':
+        await cmdDecompress(commandArgs[0], commandArgs[1]);
+        break;
       default: 
       console.log('Invalid input.\n');
     }
    
-  } catch (err) {
-    console.log('Invalid input.\n', err);
+  } catch {
+    console.log('Invalid input.\n');
   }
   
   console.log(`You are currently in ${await updateCurrentDir()}\n`);
